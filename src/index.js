@@ -113,7 +113,7 @@ function init() {
 
     const gui = new GUI();
     const soundControls = new SoundControls();
-    const volumeFolder = gui.addFolder('sound volume');
+    const volumeFolder = gui.addFolder('Volume');
 
     volumeFolder.add(soundControls, 'master').min(0.0).max(1.0).step(0.01).onChange(function () {
 
