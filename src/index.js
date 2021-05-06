@@ -33,8 +33,8 @@ function init() {
     light.position.set(0, 0.5, 1).normalize();
     scene.add(light);
 
-    const sphere = new THREE.SphereGeometry(20, 32, 16);
-    const cube = new THREE.BoxGeometry (20,20,30);
+    const bangarella = new THREE.BoxGeometry(20, 20, 100);
+    const cube = new THREE.BoxGeometry (10,10,15);
 
     material1 = new THREE.MeshPhongMaterial({ color: 0xffaa00, flatShading: true, shininess: 0 });
     material2 = new THREE.MeshPhongMaterial({ color: 0xff2200, flatShading: true, shininess: 0 });
@@ -45,7 +45,7 @@ function init() {
     const audioLoader = new THREE.AudioLoader();
 
     const mesh1 = new THREE.Mesh(cube, material1);
-    mesh1.position.set(190, 0, 0);
+    mesh1.position.set(190, 10, 0);
     scene.add(mesh1);
 
     const sound1 = new THREE.PositionalAudio(listener);
@@ -61,8 +61,8 @@ function init() {
 
     //
 
-    const mesh2 = new THREE.Mesh(sphere, material2);
-    mesh2.position.set(240, 20, 0);
+    const mesh2 = new THREE.Mesh(bangarella, material2);
+    mesh2.position.set(160, 10, 0);
     scene.add(mesh2);
 
     const sound2 = new THREE.PositionalAudio(listener);
