@@ -2,7 +2,8 @@ import * as THREE from 'three';
 
 import { GUI } from './jsm/libs/dat.gui.module.js';
 
-import { FirstPersonControls } from './jsm/controls/FirstPersonControls.js';
+// import { FirstPersonControls } from './jsm/controls/FirstPersonControls.js';
+import { DeviceOrientationControls } from './jsm/controls/DeviceOrientationControls.js';
 
 let camera, controls, scene, renderer, light;
 
@@ -146,7 +147,7 @@ function init() {
 
     //
 
-    controls = new FirstPersonControls(camera, renderer.domElement);
+    controls = new DeviceOrientationControls(camera, renderer.domElement);
 
     controls.movementSpeed = 70;
     controls.lookSpeed = 0.05;
