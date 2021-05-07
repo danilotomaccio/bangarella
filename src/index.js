@@ -52,48 +52,87 @@ function init() {
     mesh1.position.set(190, 10, 0);
     scene.add(mesh1);
 
-    const sound1 = new THREE.PositionalAudio(listener);
+    const gruppoSound = new THREE.PositionalAudio(listener);
     audioLoader.load('sounds/gruppo.mp3', function (buffer) {
 
-        sound1.setBuffer(buffer);
-        sound1.setLoop(true);
-        sound1.setRefDistance(20);
-        sound1.play();
+        gruppoSound.setBuffer(buffer);
+        gruppoSound.setLoop(true);
+        gruppoSound.setRefDistance(20);
+        gruppoSound.play();
 
     });
-    mesh1.add(sound1);
+    mesh1.add(gruppoSound);
 
     //
+
+    const gruppo2Mesh = new THREE.Mesh(cube, material1);
+    gruppo2Mesh.position.set(190, 10, 200); 
+    const gruppo3Mesh = new THREE.Mesh(cube, material1);
+    gruppo3Mesh.position.set(190, 10, -200);
+    scene.add(gruppo2Mesh);
+    scene.add(gruppo3Mesh);
+    gruppo2Mesh.add(gruppoSound);
+    gruppo3Mesh.add(gruppoSound);
 
     const mesh2 = new THREE.Mesh(bangarella, material2);
     mesh2.position.set(160, 10, 0);
     scene.add(mesh2);
 
-    const sound2 = new THREE.PositionalAudio(listener);
+    const cecchinoSound = new THREE.PositionalAudio(listener);
     audioLoader.load('sounds/luTip.mp3', function (buffer) {
 
-        sound2.setBuffer(buffer);
-        sound2.setRefDistance(20);
-        sound2.play();
+        cecchinoSound.setBuffer(buffer);
+        cecchinoSound.setRefDistance(20);
+        cecchinoSound.play();
 
     });
-    mesh2.add(sound2);
+    mesh2.add(cecchinoSound);
+    
+
+    const agostinoMesh = new THREE.Mesh(bangarella, material2);
+    agostinoMesh.position.set(160, 10, 200);
+    scene.add(agostinoMesh);
+
+    const agostinoSound = new THREE.PositionalAudio(listener);
+    audioLoader.load('sounds/agostino1.mp3', function (buffer) {
+
+        agostinoSound.setBuffer(buffer);
+        agostinoSound.setRefDistance(20);
+        agostinoSound.play();
+
+    });
+    agostinoMesh.add(agostinoSound);
+    
+
+    const agostinoMesh2 = new THREE.Mesh(bangarella, material2);
+    agostinoMesh2.position.set(160, 10, -200);
+    scene.add(agostinoMesh2);
+
+    const agostinoSound2 = new THREE.PositionalAudio(listener);
+    audioLoader.load('sounds/agostino2.mp3', function (buffer) {
+
+        agostinoSound2.setBuffer(buffer);
+        agostinoSound2.setRefDistance(20);
+        agostinoSound2.play();
+
+    });
+    agostinoMesh2.add(agostinoSound2);
 
 
     // analysers
 
-    analyser1 = new THREE.AudioAnalyser(sound1, 32);
-    analyser2 = new THREE.AudioAnalyser(sound2, 32);
+    analyser1 = new THREE.AudioAnalyser(gruppoSound, 32);
+    analyser2 = new THREE.AudioAnalyser(cecchinoSound, 32);
 
     // global ambient audio
 
-    const sound4 = new THREE.Audio(listener);
+    const follaSound = new THREE.Audio(listener);
     audioLoader.load('sounds/folla.mp3', function (buffer) {
 
-        sound4.setBuffer(buffer);
-        sound4.setLoop(true);
-        sound4.setVolume(0.25);
-        sound4.play();
+        follaSound.setBuffer(buffer);
+        follaSound.setLoop(true);
+        follaSound.setVolume(0.2);
+        follaSound.play();
 
     });
 
@@ -108,9 +147,9 @@ function init() {
     const SoundControls = function () {
 
         this.master = listener.getMasterVolume();
-        this.gruppo = sound1.getVolume();
-        this.cecchino = sound2.getVolume();
-        this.folla = sound4.getVolume();
+        this.gruppo = gruppoSound.getVolume();
+        this.cecchino = cecchinoSound.getVolume();
+        this.folla = follaSound.getVolume();
 
     };
 
@@ -125,18 +164,18 @@ function init() {
     });
     volumeFolder.add(soundControls, 'gruppo').min(0.0).max(1.0).step(0.01).onChange(function () {
 
-        sound1.setVolume(soundControls.gruppo);
+        gruppoSound.setVolume(soundControls.gruppo);
 
     });
     volumeFolder.add(soundControls, 'cecchino').min(0.0).max(1.0).step(0.01).onChange(function () {
 
-        sound2.setVolume(soundControls.cecchino);
+        cecchinoSound.setVolume(soundControls.cecchino);
 
     });
 
-    volumeFolder.add(soundControls, 'folla').min(0.0).max(1.0).step(0.01).onChange(function () {
+    volumeFolder.add(soundControls, 'folla').min(0.0).max(0.3).step(0.01).onChange(function () {
 
-        sound4.setVolume(soundControls.folla);
+        follaSound.setVolume(soundControls.folla);
 
     });
     volumeFolder.open();
