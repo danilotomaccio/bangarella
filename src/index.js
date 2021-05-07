@@ -26,6 +26,7 @@ const manager = new THREE.LoadingManager();
 manager.onLoad = function ( ) {
 
 	document.getElementById('startButton').disabled = false;
+	document.getElementById('caricamento').remove();
 
 };
 
