@@ -4,11 +4,13 @@
   "description": "",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "webpack --watch -d source-map & five-server ./dist"
   },
   "author": "Danilo Tomaccio",
   "license": "ISC",
   "dependencies": {
+    "nipplejs": "^0.9.0",
     "three": "^0.128.0"
   },
   "devDependencies": {

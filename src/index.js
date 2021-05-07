@@ -4,6 +4,9 @@ import { GUI } from './jsm/libs/dat.gui.module.js';
 
 import { FirstPersonControls } from './jsm/controls/FirstPersonControls.js';
 import { DeviceOrientationControls } from './jsm/controls/DeviceOrientationControls.js';
+import { NippleControls } from './jsm/controls/NippleControls.js';
+
+import nipplejs from 'nipplejs';
 
 let camera, controls, scene, renderer, light;
 
@@ -11,32 +14,53 @@ let material1, material2;
 
 let analyser1, analyser2;
 
+let dynamic = nipplejs.create({
+    zone: document.getElementById('dynamic'),
+    color: 'blue'
+});
+
+/* dynamic.on('start end', function (evt, data) {
+    console.log(evt.type);
+    console.log(data);
+}).on('move', function (evt, data) {
+    console.log(data);
+}).on('dir:up plain:up dir:left plain:left dir:down ' +
+    'plain:down dir:right plain:right',
+    function (evt, data) {
+        console.log(evt.type);
+    }
+).on('pressure', function (evt, data) {
+    console.log({
+        pressure: data
+    });
+}); */
+
 const clock = new THREE.Clock();
 
 const startButton = document.getElementById('startButton');
 startButton.addEventListener('click', init);
 
 function init() {
-
+    
     const overlay = document.getElementById('overlay');
     overlay.remove();
-
+    
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.set(0, 25, 0);
-
+    
     const listener = new THREE.AudioListener();
     camera.add(listener);
-
+    
     scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x000000, 0.0025);
-
+    
     light = new THREE.DirectionalLight(0xffffff);
     light.position.set(0, 0.5, 1).normalize();
     scene.add(light);
-
+    
     const bangarella = new THREE.BoxGeometry(20, 20, 100);
     const cube = new THREE.BoxGeometry(10, 10, 15);
-
+    
     material1 = new THREE.MeshPhongMaterial({ color: 0xffaa00, flatShading: true, shininess: 0 });
     material2 = new THREE.MeshPhongMaterial({ color: 0xff2200, flatShading: true, shininess: 0 });
 
@@ -150,8 +174,11 @@ function init() {
     if (isAPC()) {
         controls = new FirstPersonControls(camera, renderer.domElement);
     } else {
-        controls = new DeviceOrientationControls(camera, renderer.domElement);
+        //controls = new DeviceOrientationControls(camera, renderer.domElement);
+        controls = new NippleControls(camera, dynamic);
     }
+
+
 
     controls.movementSpeed = 70;
     controls.lookSpeed = 0.05;
