@@ -3,12 +3,12 @@ import * as THREE from 'three';
 import { GUI } from './jsm/libs/dat.gui.module.js';
 
 import { FirstPersonControls } from './jsm/controls/FirstPersonControls.js';
-import { DeviceOrientationControls } from './jsm/controls/DeviceOrientationControls.js';
+import { StereoEffect } from './jsm/effects/StereoEffect.js';
 import { NippleControls } from './jsm/controls/NippleControls.js';
 
 import nipplejs from 'nipplejs';
 
-let camera, controls, scene, renderer, light;
+let camera, controls, scene, renderer, light, effect;
 
 let material1, material2;
 
@@ -19,8 +19,9 @@ const clock = new THREE.Clock();
 const startButton = document.getElementById('startButton');
 startButton.addEventListener('click', init);
 
-
+////
 // TODO - Carica i file mp3 all'avvio. C'e' un metodo migliore?
+////
 
 const manager = new THREE.LoadingManager();
 manager.onLoad = function () {
@@ -30,10 +31,6 @@ manager.onLoad = function () {
 
 };
 
-/* manager.onProgress = function (url, itemsLoaded, itemsTotal) {
-    
-} */
-
 const audioLoader = new THREE.AudioLoader(manager);
 const listener = new THREE.AudioListener();
 
@@ -42,7 +39,7 @@ audioLoader.load('sounds/gruppo.mp3', function (buffer) {
     gruppoSound.setBuffer(buffer);
     gruppoSound.setLoop(true);
     gruppoSound.setRefDistance(20);
-    
+
 }, onLoadProgress('gruppoSound'));
 
 const cecchinoSound = new THREE.PositionalAudio(listener);
@@ -57,14 +54,14 @@ audioLoader.load('sounds/agostino2.mp3', function (buffer) {
     agostinoSound2.setBuffer(buffer);
     agostinoSound2.setLoop(true);
     agostinoSound2.setRefDistance(20);
-},onLoadProgress('agostinoSound2'));
+}, onLoadProgress('agostinoSound2'));
 
 const agostinoSound = new THREE.PositionalAudio(listener);
 audioLoader.load('sounds/agostino1.mp3', function (buffer) {
     agostinoSound.setBuffer(buffer);
     agostinoSound.setLoop(true);
     agostinoSound.setRefDistance(20);
-},onLoadProgress('agostinoSound'));
+}, onLoadProgress('agostinoSound'));
 
 let loadings = {
     agostinoSound: 0,
@@ -251,7 +248,11 @@ function init() {
 
     //
 
+    effect = new StereoEffect(renderer);
+    effect.setSize(window.innerWidth, window.innerHeight);
+
     window.addEventListener('resize', onWindowResize);
+
 
     animate();
 
@@ -262,7 +263,8 @@ function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    //renderer.setSize(window.innerWidth, window.innerHeight);
+    effect.setSize(window.innerWidth, window.innerHeight);
 
     controls.handleResize();
 
@@ -285,7 +287,7 @@ function render() {
     material1.emissive.b = analyser1.getAverageFrequency() / 256;
     material2.emissive.b = analyser2.getAverageFrequency() / 256;
 
-    renderer.render(scene, camera);
+    effect.render(scene, camera);
 
 }
 
