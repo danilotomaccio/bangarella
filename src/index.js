@@ -64,10 +64,10 @@ audioLoader.load('sounds/agostino1.mp3', function (buffer) {
 },onLoadProgress('agostinoSound'));
 
 let loadings = {
-    /* agostinoSound: 0,
+    agostinoSound: 0,
     agostinoSound2: 0,
     cecchinoSound: 0,
-    gruppoSound: 0, */
+    gruppoSound: 0,
 };
 
 function onLoadProgress(soundName) {
