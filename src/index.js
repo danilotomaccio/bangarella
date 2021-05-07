@@ -42,24 +42,27 @@ audioLoader.load('sounds/gruppo.mp3', function (buffer) {
     gruppoSound.setBuffer(buffer);
     gruppoSound.setLoop(true);
     gruppoSound.setRefDistance(20);
-
+    
 }, onLoadProgress('gruppoSound'));
 
 const cecchinoSound = new THREE.PositionalAudio(listener);
 audioLoader.load('sounds/luTip.mp3', function (buffer) {
     cecchinoSound.setBuffer(buffer);
+    cecchinoSound.setLoop(true);
     cecchinoSound.setRefDistance(20);
 }, onLoadProgress('cecchinoSound'));
 
 const agostinoSound2 = new THREE.PositionalAudio(listener);
 audioLoader.load('sounds/agostino2.mp3', function (buffer) {
     agostinoSound2.setBuffer(buffer);
+    agostinoSound2.setLoop(true);
     agostinoSound2.setRefDistance(20);
 },onLoadProgress('agostinoSound2'));
 
 const agostinoSound = new THREE.PositionalAudio(listener);
 audioLoader.load('sounds/agostino1.mp3', function (buffer) {
     agostinoSound.setBuffer(buffer);
+    agostinoSound.setLoop(true);
     agostinoSound.setRefDistance(20);
 },onLoadProgress('agostinoSound'));
 
