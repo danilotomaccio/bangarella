@@ -14,27 +14,6 @@ let material1, material2;
 
 let analyser1, analyser2;
 
-let dynamic = nipplejs.create({
-    zone: document.getElementById('dynamic'),
-    color: 'blue'
-});
-
-/* dynamic.on('start end', function (evt, data) {
-    console.log(evt.type);
-    console.log(data);
-}).on('move', function (evt, data) {
-    console.log(data);
-}).on('dir:up plain:up dir:left plain:left dir:down ' +
-    'plain:down dir:right plain:right',
-    function (evt, data) {
-        console.log(evt.type);
-    }
-).on('pressure', function (evt, data) {
-    console.log({
-        pressure: data
-    });
-}); */
-
 const clock = new THREE.Clock();
 
 const startButton = document.getElementById('startButton');
@@ -108,15 +87,15 @@ function init() {
 
     // global ambient audio
 
-    /* const sound4 = new THREE.Audio(listener);
-    audioLoader.load('sounds/gruppo.mp3', function (buffer) {
+    const sound4 = new THREE.Audio(listener);
+    audioLoader.load('sounds/folla.mp3', function (buffer) {
 
         sound4.setBuffer(buffer);
         sound4.setLoop(true);
-        sound4.setVolume(0.5);
+        sound4.setVolume(0.25);
         sound4.play();
 
-    }); */
+    });
 
     // ground
 
@@ -131,7 +110,7 @@ function init() {
         this.master = listener.getMasterVolume();
         this.gruppo = sound1.getVolume();
         this.cecchino = sound2.getVolume();
-        // this.Ambient = sound4.getVolume();
+        this.folla = sound4.getVolume();
 
     };
 
@@ -155,11 +134,11 @@ function init() {
 
     });
 
-    /* volumeFolder.add(soundControls, 'Ambient').min(0.0).max(1.0).step(0.01).onChange(function () {
+    volumeFolder.add(soundControls, 'folla').min(0.0).max(1.0).step(0.01).onChange(function () {
 
-        sound4.setVolume(soundControls.Ambient);
+        sound4.setVolume(soundControls.folla);
 
-    }); */
+    });
     volumeFolder.open();
 
     //
@@ -173,12 +152,16 @@ function init() {
 
     if (isAPC()) {
         controls = new FirstPersonControls(camera, renderer.domElement);
+        document.getElementById('dynamic').remove();
     } else {
-        //controls = new DeviceOrientationControls(camera, renderer.domElement);
+        // controls = new DeviceOrientationControls(camera, renderer.domElement);
+        let dynamic = nipplejs.create({
+            zone: document.getElementById('dynamic'),
+            color: 'grey'
+        });
+
         controls = new NippleControls(camera, dynamic);
     }
-
-
 
     controls.movementSpeed = 70;
     controls.lookSpeed = 0.05;

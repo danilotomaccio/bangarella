@@ -37,10 +37,12 @@
 			cursor: pointer;
 		}
 
-		#text {
+		.text {
 			color: #ffffff;
 			padding: 28px 18px;
 			text-transform: uppercase;
+			font-family: Verdana;
+			text-align: center;
 		}
 
 		#dynamic {
@@ -48,6 +50,21 @@
 			width: 100%;
 			height: 100%;
 		}
+
+		#pcInstr {
+			display: none;
+		}
+
+		@media screen and (min-width: 920px) {
+			#phoneInstr {
+				display: none;
+			}
+
+			#pcInstr {
+				display: block;
+			}
+		}
+		
 	</style>
 </head>
 
@@ -55,10 +72,17 @@
 
 
 	<div id="overlay">
-		<div id="text">
+		<div class="text">
 			Si consiglia l'uso delle cuffie
 		</div>
 		<button id="startButton">Play</button>
+
+		<div id="pcInstr" class="text">
+			Per spostarti puoi usare il mouse e i tasti direzionali o ASDW
+		</div>
+		<div id="phoneInstr" class="text">
+			Per muoverti muovi il telefono e usa il joystick virtuale (premi in un punto qualsiasi dello schermo)
+		</div>
 	</div>
 	<div id="container"></div>
 
