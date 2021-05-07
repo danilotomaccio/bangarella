@@ -55,13 +55,13 @@ const agostinoSound2 = new THREE.PositionalAudio(listener);
 audioLoader.load('sounds/agostino2.mp3', function (buffer) {
     agostinoSound2.setBuffer(buffer);
     agostinoSound2.setRefDistance(20);
-});
+},onLoadProgress('agostinoSound2'));
 
 const agostinoSound = new THREE.PositionalAudio(listener);
 audioLoader.load('sounds/agostino1.mp3', function (buffer) {
     agostinoSound.setBuffer(buffer);
     agostinoSound.setRefDistance(20);
-});
+},onLoadProgress('agostinoSound'));
 
 let loadings = {
     /* agostinoSound: 0,
@@ -85,6 +85,7 @@ function updateTotalLoading() {
         }
     }
     console.log(total / Object.keys(loadings).length);
+    document.getElementById("progressFore").style.width = `${(total / Object.keys(loadings).length)}%`;
 }
 
 //////////////////////////
