@@ -26,7 +26,6 @@ body {
     padding: 12px 18px;
     text-transform: uppercase;
     cursor: pointer;
-    filter: drop-shadow(0 0 5px white);
 }
 #startButton:disabled {
     opacity: .5;
@@ -38,7 +37,6 @@ body {
     text-transform: uppercase;
     font-family: Verdana;
     text-align: center;
-    filter: drop-shadow(0 0 5px white);
 }
 
 #dynamic {
