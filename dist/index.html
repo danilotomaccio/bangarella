@@ -36,6 +36,9 @@
 			text-transform: uppercase;
 			cursor: pointer;
 		}
+		#startButton:disabled {
+			opacity: .5;
+		}
 
 		.text {
 			color: #ffffff;
@@ -75,7 +78,7 @@
 		<div class="text">
 			Si consiglia l'uso delle cuffie
 		</div>
-		<button id="startButton">Play</button>
+		<button id="startButton" disabled>Play</button>
 
 		<div id="pcInstr" class="text">
 			Per spostarti puoi usare il mouse e i tasti direzionali o ASDW

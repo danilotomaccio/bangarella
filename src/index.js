@@ -22,7 +22,14 @@ startButton.addEventListener('click', init);
 
 // TODO - Carica i file mp3 all'avvio. C'e' un metodo migliore?
 
-const audioLoader = new THREE.AudioLoader();
+const manager = new THREE.LoadingManager();
+manager.onLoad = function ( ) {
+
+	document.getElementById('startButton').disabled = false;
+
+};
+
+const audioLoader = new THREE.AudioLoader(manager);
 const listener = new THREE.AudioListener();
 
 const gruppoSound = new THREE.PositionalAudio(listener);
