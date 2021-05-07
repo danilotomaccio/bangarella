@@ -305,7 +305,7 @@ class NippleControls extends EventDispatcher {
                 }
 
                 lon -= alpha * actualLookSpeed;
-                if (this.lookVertical) lat -= beta * actualLookSpeed * verticalLookRatio;
+                if (this.lookVertical) lat -= gamma * actualLookSpeed * verticalLookRatio;
 
                 lat = Math.max(- 85, Math.min(85, lat));
 
