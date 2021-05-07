@@ -23,12 +23,16 @@ startButton.addEventListener('click', init);
 // TODO - Carica i file mp3 all'avvio. C'e' un metodo migliore?
 
 const manager = new THREE.LoadingManager();
-manager.onLoad = function ( ) {
+manager.onLoad = function () {
 
-	document.getElementById('startButton').disabled = false;
-	document.getElementById('caricamento').remove();
+    document.getElementById('startButton').disabled = false;
+    document.getElementById('caricamento').remove();
 
 };
+
+/* manager.onProgress = function (url, itemsLoaded, itemsTotal) {
+    
+} */
 
 const audioLoader = new THREE.AudioLoader(manager);
 const listener = new THREE.AudioListener();
@@ -39,13 +43,13 @@ audioLoader.load('sounds/gruppo.mp3', function (buffer) {
     gruppoSound.setLoop(true);
     gruppoSound.setRefDistance(20);
 
-});
+}, onLoadProgress('gruppoSound'));
 
 const cecchinoSound = new THREE.PositionalAudio(listener);
 audioLoader.load('sounds/luTip.mp3', function (buffer) {
     cecchinoSound.setBuffer(buffer);
     cecchinoSound.setRefDistance(20);
-});
+}, onLoadProgress('cecchinoSound'));
 
 const agostinoSound2 = new THREE.PositionalAudio(listener);
 audioLoader.load('sounds/agostino2.mp3', function (buffer) {
@@ -58,6 +62,30 @@ audioLoader.load('sounds/agostino1.mp3', function (buffer) {
     agostinoSound.setBuffer(buffer);
     agostinoSound.setRefDistance(20);
 });
+
+let loadings = {
+    /* agostinoSound: 0,
+    agostinoSound2: 0,
+    cecchinoSound: 0,
+    gruppoSound: 0, */
+};
+
+function onLoadProgress(soundName) {
+    return (xhr) => {
+        loadings[soundName] = (xhr.loaded / xhr.total * 100)
+        updateTotalLoading();
+    };
+}
+
+function updateTotalLoading() {
+    let total = 0;
+    for (const soundName in loadings) {
+        if (Object.hasOwnProperty.call(loadings, soundName)) {
+            total += loadings[soundName];
+        }
+    }
+    console.log(total / Object.keys(loadings).length);
+}
 
 //////////////////////////
 
