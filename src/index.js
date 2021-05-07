@@ -146,7 +146,7 @@ function init() {
 
 
     const agostinoMesh = new THREE.Mesh(bangarella, material2);
-    agostinoMesh.position.set(160, 10, 200);
+    agostinoMesh.position.set(160, 10, 220);
     scene.add(agostinoMesh);
 
     agostinoMesh.add(agostinoSound);
@@ -154,7 +154,7 @@ function init() {
 
 
     const agostinoMesh2 = new THREE.Mesh(bangarella, material2);
-    agostinoMesh2.position.set(160, 10, -200);
+    agostinoMesh2.position.set(160, 10, -220);
     scene.add(agostinoMesh2);
 
     agostinoMesh2.add(agostinoSound2);
