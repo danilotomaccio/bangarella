@@ -25,7 +25,7 @@ startButton.addEventListener('click', init);
 const manager = new THREE.LoadingManager();
 manager.onLoad = function () {
 
-    document.getElementById('startButton').disabled = false;
+    document.getElementById('startButton').style.display = 'block';
     document.getElementById('caricamento').remove();
 
 };

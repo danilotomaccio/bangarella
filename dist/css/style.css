@@ -26,9 +26,7 @@ body {
     padding: 12px 18px;
     text-transform: uppercase;
     cursor: pointer;
-}
-#startButton:disabled {
-    opacity: .5;
+    display: none;
 }
 
 .text {
