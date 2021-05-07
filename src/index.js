@@ -84,7 +84,7 @@ function updateTotalLoading() {
             total += loadings[soundName];
         }
     }
-    console.log(total / Object.keys(loadings).length);
+    // console.log(total / Object.keys(loadings).length);
     document.getElementById("progressFore").style.width = `${(total / Object.keys(loadings).length)}%`;
 }
 
