@@ -19,56 +19,79 @@ const clock = new THREE.Clock();
 const startButton = document.getElementById('startButton');
 startButton.addEventListener('click', init);
 
+
+// TODO - Carica i file mp3 all'avvio. C'e' un metodo migliore?
+
+const audioLoader = new THREE.AudioLoader();
+const listener = new THREE.AudioListener();
+
+const gruppoSound = new THREE.PositionalAudio(listener);
+audioLoader.load('sounds/gruppo.mp3', function (buffer) {
+    gruppoSound.setBuffer(buffer);
+    gruppoSound.setLoop(true);
+    gruppoSound.setRefDistance(20);
+
+});
+
+const cecchinoSound = new THREE.PositionalAudio(listener);
+audioLoader.load('sounds/luTip.mp3', function (buffer) {
+    cecchinoSound.setBuffer(buffer);
+    cecchinoSound.setRefDistance(20);
+});
+
+const agostinoSound2 = new THREE.PositionalAudio(listener);
+audioLoader.load('sounds/agostino2.mp3', function (buffer) {
+    agostinoSound2.setBuffer(buffer);
+    agostinoSound2.setRefDistance(20);
+});
+
+const agostinoSound = new THREE.PositionalAudio(listener);
+audioLoader.load('sounds/agostino1.mp3', function (buffer) {
+    agostinoSound.setBuffer(buffer);
+    agostinoSound.setRefDistance(20);
+});
+
+//////////////////////////
+
 function init() {
-    
+
     const overlay = document.getElementById('overlay');
     overlay.remove();
-    
+
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.set(0, 25, 0);
-    
-    const listener = new THREE.AudioListener();
+
     camera.add(listener);
-    
+
     scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x000000, 0.0025);
-    
+
     light = new THREE.DirectionalLight(0xffffff);
     light.position.set(0, 0.5, 1).normalize();
     scene.add(light);
-    
+
     const bangarella = new THREE.BoxGeometry(20, 20, 100);
     const cube = new THREE.BoxGeometry(10, 10, 15);
-    
+
     material1 = new THREE.MeshPhongMaterial({ color: 0xffaa00, flatShading: true, shininess: 0 });
     material2 = new THREE.MeshPhongMaterial({ color: 0xff2200, flatShading: true, shininess: 0 });
 
 
     // sound spheres
 
-    const audioLoader = new THREE.AudioLoader();
-
     const mesh1 = new THREE.Mesh(cube, material1);
-    mesh1.position.set(190, 10, 0);
+    mesh1.position.set(190, 5, 0);
     scene.add(mesh1);
 
-    const gruppoSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('sounds/gruppo.mp3', function (buffer) {
-
-        gruppoSound.setBuffer(buffer);
-        gruppoSound.setLoop(true);
-        gruppoSound.setRefDistance(20);
-        gruppoSound.play();
-
-    });
     mesh1.add(gruppoSound);
+    gruppoSound.play();
 
     //
 
     const gruppo2Mesh = new THREE.Mesh(cube, material1);
-    gruppo2Mesh.position.set(190, 10, 200); 
+    gruppo2Mesh.position.set(190, 5, 200);
     const gruppo3Mesh = new THREE.Mesh(cube, material1);
-    gruppo3Mesh.position.set(190, 10, -200);
+    gruppo3Mesh.position.set(190, 5, -200);
     scene.add(gruppo2Mesh);
     scene.add(gruppo3Mesh);
     gruppo2Mesh.add(gruppoSound);
@@ -78,45 +101,24 @@ function init() {
     mesh2.position.set(160, 10, 0);
     scene.add(mesh2);
 
-    const cecchinoSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('sounds/luTip.mp3', function (buffer) {
-
-        cecchinoSound.setBuffer(buffer);
-        cecchinoSound.setRefDistance(20);
-        cecchinoSound.play();
-
-    });
     mesh2.add(cecchinoSound);
-    
+    cecchinoSound.play();
+
 
     const agostinoMesh = new THREE.Mesh(bangarella, material2);
     agostinoMesh.position.set(160, 10, 200);
     scene.add(agostinoMesh);
 
-    const agostinoSound = new THREE.PositionalAudio(listener);
-    audioLoader.load('sounds/agostino1.mp3', function (buffer) {
-
-        agostinoSound.setBuffer(buffer);
-        agostinoSound.setRefDistance(20);
-        agostinoSound.play();
-
-    });
     agostinoMesh.add(agostinoSound);
-    
+    agostinoSound.play();
+
 
     const agostinoMesh2 = new THREE.Mesh(bangarella, material2);
     agostinoMesh2.position.set(160, 10, -200);
     scene.add(agostinoMesh2);
 
-    const agostinoSound2 = new THREE.PositionalAudio(listener);
-    audioLoader.load('sounds/agostino2.mp3', function (buffer) {
-
-        agostinoSound2.setBuffer(buffer);
-        agostinoSound2.setRefDistance(20);
-        agostinoSound2.play();
-
-    });
     agostinoMesh2.add(agostinoSound2);
+    agostinoSound2.play();
 
 
     // analysers
